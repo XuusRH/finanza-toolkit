@@ -33,7 +33,12 @@ async function convertCurrency() {
   document.getElementById('fx-result').innerText = `${amount} ${from} ≈ ${out.toLocaleString('es-ES')} ${to} (tipo ${rate})`;
 }
 
-const COMMON = ["EUR","USD","GBP","JPY","CHF","CAD","AUD","MXN","BRL","ARS","CLP","COP","CNY","HKD","INR","RUB","ZAR"];
+const COMMON = [
+  "AUD","BGN","BRL","CAD","CHF","CNY","CZK","DKK","EUR","GBP","HKD",
+  "HUF","IDR","ILS","INR","ISK","JPY","KRW","MXN","MYR","NOK","NZD",
+  "PHP","PLN","RON","SEK","SGD","THB","TRY","USD","ZAR"
+];
+
 function fillCurrencies() {
   const selFrom = document.getElementById('fx-from');
   const selTo = document.getElementById('fx-to');

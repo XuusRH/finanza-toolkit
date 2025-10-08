@@ -1,7 +1,9 @@
-async function fetchRates(base='EUR') {
-fetch(`https://corsproxy.io/?https://api.frankfurter.app/latest?from=${encodeURIComponent(base)}`)
-  if (!res.ok) throw new Error('No se pudo obtener tasas');
-  return res.json();
+async function fetchRates(base = 'EUR') {
+  const res = await fetch(`https://api.frankfurter.app/latest?from=${encodeURIComponent(base)}`);
+  const data = await res.json();   // <-- convierte la respuesta en JSON
+  return data;
+}
+
 }
 
 let cacheRates = null;

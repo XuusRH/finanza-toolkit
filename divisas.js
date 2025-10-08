@@ -33,11 +33,43 @@ async function convertCurrency() {
   document.getElementById('fx-result').innerText = `${amount} ${from} ≈ ${out.toLocaleString('es-ES')} ${to} (tipo ${rate})`;
 }
 
-const COMMON = [
-  "AUD","BGN","BRL","CAD","CHF","CNY","CZK","DKK","EUR","GBP","HKD",
-  "HUF","IDR","ILS","INR","ISK","JPY","KRW","MXN","MYR","NOK","NZD",
-  "PHP","PLN","RON","SEK","SGD","THB","TRY","USD","ZAR"
-];
+async function loadCurrencies() {
+  try {
+    // Llamamos a la API para obtener las divisas disponibles
+    const res = await fetch('https://api.frankfurter.app/currencies');
+    const currencies = await res.json();
+
+    const selFrom = document.getElementById('fx-from');
+    const selTo = document.getElementById('fx-to');
+
+    // Limpiar opciones previas
+    selFrom.innerHTML = '';
+    selTo.innerHTML = '';
+
+    // Rellenar con las divisas que devuelve la API
+    Object.keys(currencies).forEach(code => {
+      const option1 = document.createElement('option');
+      option1.value = code;
+      option1.textContent = `${code} – ${currencies[code]}`;
+      selFrom.appendChild(option1);
+
+      const option2 = document.createElement('option');
+      option2.value = code;
+      option2.textContent = `${code} – ${currencies[code]}`;
+      selTo.appendChild(option2);
+    });
+
+    // Selección por defecto
+    selFrom.value = 'EUR';
+    selTo.value = 'USD';
+  } catch (err) {
+    console.error('Error cargando divisas:', err);
+    document.getElementById('fx-result').innerText = 'Error cargando lista de divisas.';
+  }
+}
+
+// Ejecutar al cargar la página
+document.addEventListener('DOMContentLoaded', loadCurrencies);
 
 function fillCurrencies() {
   const selFrom = document.getElementById('fx-from');

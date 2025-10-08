@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Herramientas de Finanzas: Préstamos y Divisas</title>
+  <meta name="description" content="Calculadora de préstamos/hipoteca y conversor de divisas en tiempo real. Rápido, gratis y sin registros." />
+  <link rel="stylesheet" href="style.css" />
+  <!-- AdSense: pega tu código aquí cuando tengas cuenta aprobada -->
+  <!-- Ejemplo (sustituye por tu client ID):
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "WebSite", "name": "Herramientas de Finanzas", "url": "https://TU-DOMINIO-O-SUBDOMINIO"}
+  </script>
+</head>
+<body>
+  <header>
+    <div class="wrapper">
+      <div class="nav">
+        <a href="index.html"><b>Inicio</b></a>
+        <a href="#prestamos">Calculadora de Préstamos</a>
+        <a href="#divisas">Conversor de Divisas</a>
+        <span class="badge">Gratis</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrapper">
+    <h1>Calcula tu cuota y convierte divisas al instante</h1>
+    <p>Herramientas simples que resuelven dos dudas de cada día. Sin registro, carga rápida, móvil primero.</p>
+
+    <div id="prestamos" class="grid grid-2" style="margin-top:24px">
+      <section class="card">
+        <h2>🧮 Calculadora de Préstamos / Hipoteca</h2>
+        <p>Introduce <i>cantidad</i>, <i>interés anual (TIN)</i> y <i>años</i>. Calculamos tu cuota y la tabla de amortización básica.</p>
+        <label for="loan-amount">Cantidad (€)</label>
+        <input id="loan-amount" type="number" min="0" placeholder="100000" />
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px">
+          <div>
+            <label for="loan-rate">Interés anual (TIN %)</label>
+            <input id="loan-rate" type="number" step="0.01" min="0" placeholder="3.5" value="3.5" />
+          </div>
+          <div>
+            <label for="loan-years">Años</label>
+            <input id="loan-years" type="number" min="1" placeholder="30" value="30" />
+          </div>
+        </div>
+        <button style="margin-top:12px" onclick="handleLoanCalc()">Calcular</button>
+        <div id="loan-result" style="margin-top:10px; font-weight:600"></div>
+        <div id="loan-table-wrap" style="display:none; margin-top:12px; overflow:auto; max-height:360px" class="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Periodo</th><th>Cuota</th><th>Interés</th><th>Capital</th><th>Saldo</th>
+              </tr>
+            </thead>
+            <tbody id="loan-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="divisas" class="card">
+        <h2>💱 Conversor de Divisas (BCE)</h2>
+        <p>Tipos del BCE actualizados (Frankfurter API). Selecciona monedas y convierte.</p>
+        <label for="fx-amount">Cantidad</label>
+        <input id="fx-amount" type="number" min="0" placeholder="100" />
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px">
+          <div>
+            <label for="fx-from">De</label>
+            <select id="fx-from"></select>
+          </div>
+          <div>
+            <label for="fx-to">A</label>
+            <select id="fx-to"></select>
+          </div>
+        </div>
+        <button style="margin-top:12px" onclick="convertCurrency()">Convertir</button>
+        <div id="fx-result" style="margin-top:10px; font-weight:600"></div>
+        <small>Fecha de tasas: <span id="fx-date">—</span></small>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:24px">
+      <h2>Preguntas frecuentes</h2>
+      <details>
+        <summary>¿Cuál es la diferencia entre TIN y TAE?</summary>
+        <p>El TIN es el interés nominal anual. La TAE incorpora otros costes (comisiones, periodicidad), por eso suele ser mayor. Aquí calculamos la cuota con el TIN.</p>
+      </details>
+      <details>
+        <summary>¿De dónde salen las tasas de divisa?</summary>
+        <p>Del Banco Central Europeo vía la API Frankfurter. Son tasas de referencia, no incluyen la comisión de tu banco/casa de cambio.</p>
+      </details>
+      <details>
+        <summary>¿Puedo usar esto gratis?</summary>
+        <p>Sí. El sitio es estático y las APIs usadas son gratuitas. Para monetizar con AdSense te conviene tener dominio propio.</p>
+      </details>
+    </section>
+
+    <div class="footer">
+      <p><a href="privacidad.html">Privacidad</a> · <a href="sobre.html">Sobre</a></p>
+      <small>&copy; 2025 Herramientas de Finanzas. Sin garantías; úsalo bajo tu propio criterio.</small>
+    </div>
+  </main>
+
+  <script src="loan.js"></script>
+  <script src="divisas.js"></script>
+</body>
+</html>

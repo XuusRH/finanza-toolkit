@@ -3,12 +3,8 @@ async function fetchRates(base = 'EUR') {
   const data = await res.json();   // <-- convierte la respuesta en JSON
   return data;
 }
-
-}
-
 let cacheRates = null;
 let cacheBase = 'EUR';
-
 async function convertCurrency() {
   const amount = parseFloat(document.getElementById('fx-amount').value || '0');
   const from = document.getElementById('fx-from').value;

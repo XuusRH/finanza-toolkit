@@ -1,3 +1,41 @@
+async function fillCurrencies() {
+  const selFrom = document.getElementById('fx-from');
+  const selTo = document.getElementById('fx-to');
+
+  try {
+    // Pide a la API las divisas soportadas
+    const res = await fetch('https://api.frankfurter.app/currencies');
+    const data = await res.json();   // { "USD": "United States Dollar", "EUR": "Euro", ... }
+
+    // Limpia los selects antes de llenarlos
+    selFrom.innerHTML = '';
+    selTo.innerHTML = '';
+
+    // Rellena las opciones dinámicamente
+    for (const [code, name] of Object.entries(data)) {
+      const o1 = document.createElement('option');
+      o1.value = code;
+      o1.textContent = `${code} – ${name}`;
+      selFrom.appendChild(o1);
+
+      const o2 = document.createElement('option');
+      o2.value = code;
+      o2.textContent = `${code} – ${name}`;
+      selTo.appendChild(o2);
+    }
+
+    // Selecciones por defecto
+    selFrom.value = 'EUR';
+    selTo.value = 'USD';
+
+  } catch (err) {
+    console.error('Error cargando divisas', err);
+  }
+}
+
+// Llamar la función cuando la página esté lista
+document.addEventListener('DOMContentLoaded', fillCurrencies);
+
 async function fetchRates(base = 'EUR') {
   const res = await fetch(`https://api.frankfurter.app/latest?from=${encodeURIComponent(base)}`);
   const data = await res.json();   // <-- convierte la respuesta en JSON
@@ -71,14 +109,3 @@ async function loadCurrencies() {
 // Ejecutar al cargar la página
 document.addEventListener('DOMContentLoaded', loadCurrencies);
 
-function fillCurrencies() {
-  const selFrom = document.getElementById('fx-from');
-  const selTo = document.getElementById('fx-to');
-  COMMON.forEach(code => {
-    const o1 = document.createElement('option'); o1.value = code; o1.textContent = code; selFrom.appendChild(o1);
-    const o2 = document.createElement('option'); o2.value = code; o2.textContent = code; selTo.appendChild(o2);
-  });
-  selFrom.value = 'EUR';
-  selTo.value = 'USD';
-}
-document.addEventListener('DOMContentLoaded', fillCurrencies);

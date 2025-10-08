@@ -1,5 +1,5 @@
 async function fetchRates(base='EUR') {
-fetch(`https://api.frankfurter.app/latest?from=${encodeURIComponent(base)}`)
+fetch(`https://corsproxy.io/?https://api.frankfurter.app/latest?from=${encodeURIComponent(base)}`)
   if (!res.ok) throw new Error('No se pudo obtener tasas');
   return res.json();
 }
